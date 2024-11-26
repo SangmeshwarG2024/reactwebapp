@@ -28,6 +28,53 @@
   color: #61dafb;
 }
 
+.navbar {
+  list-style: none;
+  display: flex; 
+  background-color: black;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+.navbar li{
+  margin: 10px;
+  padding: 10px; 
+  color: white;
+}
+.navbar li a{
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
+.navbar li:hover{
+ background-color: green;
+}
+.card{
+ display: inline-flex; 
+ flex-direction: column;
+max-width: 250px;
+
+border: 1px solid hsl(0, 0%, 80%);
+ box-shadow: 5px 5px 5px hsl(0, 0%, 0%,0.01);
+ padding:20px;
+ margin:10px;
+ text-align: center;
+}
+.card .card-image{
+  max-width: 60%;
+  /* max-height: 400px; */
+  margin-bottom: 10px;
+}
+.card .card-title{
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: gray;
+}
+.card .card-text{
+  font-family: Arial, Helvetica, sans-serif;
+  color: hsl(0,0%,30%);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
