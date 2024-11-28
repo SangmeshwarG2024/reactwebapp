@@ -1,20 +1,29 @@
 import React, { useEffect, useState, Suspense } from "react";
+import LoadingImage from "../components/Loading";
 
 const Card = React.lazy(() => import("../components/Card"));
 const Home = () => {
   const [data, setData] = useState([]);
   const [pageIndex, setPageindex] = useState(1);
-
-  const fetchData = async () => {
-    await fetch(
-      `https://dummyjson.com/products?limit=12&skip=${pageIndex * 12}`
-    )
-      .then((res) => res.json())
-      .then((res) => setData((prev) => [...prev, ...res?.products]));
-  };
+  const [loading, setLoading] = useState(false);
 
   //fetching data on pageIndex changed
   useEffect(() => {
+    setLoading(true);
+    const fetchData = async () => {
+      await fetch(
+        `https://dummyjson.com/products?limit=12&skip=${pageIndex * 12}`
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          setData((prev) => [...prev, ...res?.products]);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.log(error);
+        });
+    };
     fetchData();
   }, [pageIndex]);
 
@@ -39,9 +48,11 @@ const Home = () => {
   return (
     <>
       <h1>Products</h1>
-      <Suspense fallback={<h1>Loading..............</h1>}>
+      <Suspense fallback={<LoadingImage />}>
         <Card products={data} />
       </Suspense>
+      <br />
+      {loading ? <LoadingImage /> : ""}
     </>
   );
 };
